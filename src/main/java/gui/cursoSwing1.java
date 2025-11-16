@@ -35,7 +35,7 @@ class miMarcoCentrado extends JFrame{
         setSize(ancho/2, alto/2);
         setLocation(ancho/4, alto/4);
 
-        Image miIcono = miPantalla.getImage("icono.gif");
+        Image miIcono = miPantalla.getImage("C:/ruta/completa/al/icono.gif");
         setIconImage(miIcono);
     }
 }
