@@ -2,7 +2,7 @@ import java.sql.*;
 import java.util.*;
 
 public class cursoPlatzi2 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Scanner teclado = new Scanner(System.in);
 
         Connection myConn = null;                 // Conexion
@@ -10,8 +10,12 @@ public class cursoPlatzi2 {
         PreparedStatement myPreparedStant = null; // Declaracion para consultas INSERT
         ResultSet resultSet = null;               // Resultados
 
+        String url = "jdbc:mysql://localhost:3306/cursoPlatzi";
+        String user = "root";
+        String password = "root";
+
         try {
-            myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cursoPlatzi", "root", "root");
+            myConn = DriverManager.getConnection(url, user, password);
             myStant = myConn.createStatement();
 
 //          CREATE - INSERT
@@ -49,15 +53,24 @@ public class cursoPlatzi2 {
             String sqlBorrar = ("DELETE FROM employees WHERE first_name = 'Bautista'");
             myStant.executeUpdate(sqlBorrar);
             System.out.println("-Empleado borrado con exito-");
-
-            myPreparedStant.close();
-            resultSet.close();
-            myStant.close();
-            myConn.close();
         }
         catch (Exception e){
             e.printStackTrace();
             System.out.println("Fallo la conexion");
+        }
+        finally {
+            if (myPreparedStant != null){
+                myPreparedStant.close();
+            }
+            if (resultSet != null){
+                resultSet.close();
+            }
+            if (myStant != null){
+                myStant.close();
+            }
+            if (myConn != null){
+                myConn.close();
+            }
         }
     }
 }
